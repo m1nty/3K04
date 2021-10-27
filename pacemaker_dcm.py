@@ -42,7 +42,7 @@ class DCM:
                     sg.popup("Credentials cannot be empty.")
 
                 # Avoid duplicate users
-                elif DCM.verify(values["-name-"], values["-password-"]):
+                elif DCM.existing_name(values["-name-"]):
                     sg.popup("User already exists.")
 
                 # Successful registration
@@ -63,6 +63,15 @@ class DCM:
         for line in open("user_data.txt", "r").readlines():
             user = line.split()
             if name == user[0] and password == user[1]:
+                return True
+        return False
+
+    # This method authenticates the user login
+    @staticmethod
+    def existing_name(name):
+        for line in open("user_data.txt", "r").readlines():
+            user = line.split()
+            if name == user[0]:
                 return True
         return False
 
