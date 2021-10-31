@@ -45,6 +45,10 @@ class DCM:
                 elif DCM.existing_name(values["-name-"]):
                     sg.popup("User already exists.")
 
+                # Max 10 Users
+                elif DCM.is_db_full():
+                    sg.popup("Max user capacity reached.")
+
                 # Successful registration
                 else:
                     DCM.register(values["-name-"], values["-password-"])
@@ -79,6 +83,13 @@ class DCM:
             user = line.split()
             if name == user[0]:
                 return True
+        return False
+
+    # This method checks if db at full capacity
+    @staticmethod
+    def is_db_full():
+        if sum(1 for line in open('user_data.txt')) == 10:
+            return True
         return False
 
     # This method registers new users by writing it to the database(txt file)
