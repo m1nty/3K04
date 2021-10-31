@@ -1,6 +1,6 @@
 # Imports
 import PySimpleGUI as sg
-from dcm_layoutsv2 import landing_layout, make_parameters
+from dcm_layouts import landing_layout, make_parameters
 import json
 
 # Set theme of GUI
