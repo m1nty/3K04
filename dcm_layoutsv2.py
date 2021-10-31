@@ -14,7 +14,7 @@ def make_parameters(data):
                     [sg.Text('Upper Rate Limit', size=(16,1)), sg.InputText(data[1], key='AOO-URL')],
                     [sg.Text('Atrial Amplitude', size=(16,1)), sg.InputText(data[2], key='AOO-AA')],
                     [sg.Text('Atrial Pulse Width', size=(16,1)), sg.InputText(data[3], key='AOO-APW')],
-                    [sg.Button('Submit')] ]
+                    [sg.Button('Submit', key='SUB-AOO')] ]
 
     VOO_layout = [  [sg.Text('Pacing Mode - VOO', font=("Helvetica", 20))],
                     [sg.Graph((500, 250), (0,0), (500, 250), background_color='white')],
@@ -23,7 +23,7 @@ def make_parameters(data):
                     [sg.Text('Upper Rate Limit', size=(16,1)), sg.InputText(data[5], key='VOO-URL')],
                     [sg.Text('Ventrical Amplitude', size=(16,1)), sg.InputText(data[6], key='VOO-VA')],
                     [sg.Text('Ventrical Pulse Width', size=(16,1)), sg.InputText(data[7], key='VOO-VPW')],
-                    [sg.Button('Submit')] ]
+                    [sg.Button('Submit', key='SUB-VOO')] ]
 
     AAI_layout = [  [sg.Text('Pacing Mode - AAI', font=("Helvetica", 20))],
                     [sg.Graph((500, 250), (0,0), (500, 250), background_color='white')],
@@ -37,7 +37,7 @@ def make_parameters(data):
                     [sg.Text('PVARP', size=(16,1)), sg.InputText(data[14], key='AAI-PVARP')],
                     [sg.Text('Hysteresis', size=(16,1)), sg.InputText(data[15], key='AAI-H')],
                     [sg.Text('Rate Smoothing', size=(16,1)), sg.InputText(data[16], key='AAI-RS')],
-                    [sg.Button('Submit')] ]
+                    [sg.Button('Submit', key='SUB-AAI')] ]
 
     VVI_layout = [  [sg.Text('Pacing Mode - VVI', font=("Helvetica", 20))],
                     [sg.Graph((500, 250), (0,0), (500, 250), background_color='white')],
@@ -50,7 +50,7 @@ def make_parameters(data):
                     [sg.Text('VRP', size=(16,1)), sg.InputText(data[22], key='VVI-VRP')],
                     [sg.Text('Hysteresis', size=(16,1)), sg.InputText(data[23], key='VVI-H')],
                     [sg.Text('Rate Smoothing', size=(16,1)), sg.InputText(data[24], key='VVI-RS')],
-                    [sg.Button('Submit')] ]
+                    [sg.Button('Submit', key='SUB-VVI')] ]
 
     pacing_layout = [ 
         [

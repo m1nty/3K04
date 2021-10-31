@@ -51,7 +51,7 @@ class DCM:
                     DCM.default_paramaters()
                     sg.popup("User successfully registered.")
                 
-            if event == "Submit":
+            if event in ['SUB-AOO', 'SUB-VOO', 'SUB-AAI', 'SUB-VVI']:
                 DCM.submit_parameters(username,values)
 
 
