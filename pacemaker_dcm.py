@@ -15,8 +15,11 @@ class DCM:
         
     def run_welcome_screen(self):
         # Infinite loop so that the program stays running until the window is closed
-        with open('parameter_limits.json') as f:
-            param_limits = json.load(f)
+        with open('parameter_data.json') as f:
+            param_data = json.load(f)
+
+        param_limits = param_data['param_limits']
+        param_keys = param_data['param_keys']
         while True:
             # Read in event and input values
             event, values = self.window.read()
@@ -53,11 +56,11 @@ class DCM:
                 # Successful registration
                 else:
                     DCM.register(values["-name-"], values["-password-"])
-                    DCM.default_paramaters(self.username, param_limits)
+                    DCM.default_paramaters(self.username, param_keys, param_limits)
                     sg.popup("User successfully registered.")
                 
             if event in ['SUB-AOO', 'SUB-VOO', 'SUB-AAI', 'SUB-VVI']:
-                DCM.submit_parameters(self.username, values, param_limits)
+                DCM.submit_parameters(self.username, values, param_keys, param_limits)
 
 
         self.window.close()
@@ -73,6 +76,8 @@ class DCM:
     def verify(name, password):
         for line in open("user_data.txt", "r").readlines():
             user = line.split()
+            if not user:
+                return False
             if name == user[0] and password == user[1]:
                 return True
         return False
@@ -82,6 +87,8 @@ class DCM:
     def existing_name(name):
         for line in open("user_data.txt", "r").readlines():
             user = line.split()
+            if not user:
+                return False
             if name == user[0]:
                 return True
         return False
@@ -105,21 +112,22 @@ class DCM:
 
     #This method is for giving a new registered user default parameters
     @staticmethod
-    def default_paramaters(name, param_limits):
+    def default_paramaters(name, param_keys, param_limits):
         count=0
         file = open("user_data.txt", "r")
         list_of_lines = file.readlines()
 
         for line in list_of_lines:
             user = line.split()
-            if name == user[0]:
-                file.close()
-                break
+            if user:
+                if name == user[0]:
+                    file.close()
+                    break
             count +=1
 
         default_params = ''
-        for param in param_limits:
-            default_params += str(param_limits[param]['low']) + ' '
+        for param in param_keys:
+            default_params += str(param_limits[param.split('-')[1]]['nominal']) + ' '
         default_params += '\n'
 
         list_of_lines[count]= list_of_lines[count].replace("\n"," ") + default_params
@@ -130,10 +138,10 @@ class DCM:
 
     #This method sends the inputed values to the text file with all the data
     @staticmethod
-    def submit_parameters(name, values, param_limits):
+    def submit_parameters(name, values, param_keys, param_limits):
         invalid_value_flag = False
         count = 0
-        list_of_keys =['AOO-LRL','AOO-URL','AOO-AA','AOO-APW','VOO-LRL','VOO-URL','VOO-VA','VOO-VPW','AAI-LRL','AAI-URL','AAI-AA','AAI-APW','AAI-AS','AAI-ARP','AAI-PVARP','AAI-H','AAI-RS','VVI-LRL','VVI-URL','VVI-VA','VVI-VPW','VVI-VS','VVI-VRP','VVI-H','VVI-RS']
+        
         a_file = open("user_data.txt", "r")
         list_of_lines = a_file.readlines()
 
@@ -147,9 +155,9 @@ class DCM:
         for x in range(len(user)):
             if(x==0 or x==1):
                 continue
-            curr_key = list_of_keys[x-2]
+            curr_key = param_keys[x-2]
 
-            if float(values[curr_key]) >= param_limits[curr_key]['low'] and float(values[curr_key]) <= param_limits[curr_key]['high']:
+            if values[curr_key] in str(param_limits[curr_key.split('-')[1]]):
                 user[x] = values[curr_key]
             else:
                 sg.popup("Parameter out of bounds: {}".format(curr_key))

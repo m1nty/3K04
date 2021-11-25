@@ -52,6 +52,100 @@ def make_parameters(data):
                     [sg.Text('Rate Smoothing', size=(16,1)), sg.InputText(data[24], key='VVI-RS')],
                     [sg.Button('Submit', key='SUB-VVI')] ]
 
+    DOO_layout = [  [sg.Text('Pacing Mode - DOO', font=("Helvetica", 20))],
+                    [sg.Graph((500, 250), (0,0), (500, 250), background_color='white')],
+                    [sg.Text('Enter Parameters:', font=("Helvetica", 16))],
+                    [sg.Text('Lower Rate Limit', size=(16,1)), sg.InputText(data[25], key='DOO-LRL')],
+                    [sg.Text('Upper Rate Limit', size=(16,1)), sg.InputText(data[26], key='DOO-URL')],
+                    [sg.Text('Fixed AV Delay', size=(16,1)), sg.InputText(data[27], key='DOO-FAD')],
+                    [sg.Text('Ventrical Amplitude', size=(16,1)), sg.InputText(data[28], key='DOO-VA')],
+                    [sg.Text('Ventrical Pulse Width', size=(16,1)), sg.InputText(data[29], key='DOO-VPW')],
+                    [sg.Text('Atrial Amplitude', size=(16,1)), sg.InputText(data[30], key='DOO-AA')],
+                    [sg.Text('Atrial Pulse Width', size=(16,1)), sg.InputText(data[31], key='DOO-APW')],
+                    [sg.Button('Submit', key='SUB-DOO')] ]
+
+    AOOR_layout = [  [sg.Text('Pacing Mode - AOOR', font=("Helvetica", 20))],
+                     [sg.Graph((500, 250), (0,0), (500, 250), background_color='white')],
+                     [sg.Text('Enter Parameters:', font=("Helvetica", 16))],
+                     [sg.Text('Lower Rate Limit', size=(16,1)), sg.InputText(data[32], key='AOOR-LRL')],
+                     [sg.Text('Upper Rate Limit', size=(16,1)), sg.InputText(data[33], key='AOOR-URL')],
+                     [sg.Text('Maximum Sensor Rate', size=(16,1)), sg.InputText(data[34], key='AOOR-MSR')],
+                     [sg.Text('Atrial Amplitude', size=(16,1)), sg.InputText(data[35], key='AOOR-AA')],
+                     [sg.Text('Atrial Pulse Width', size=(16,1)), sg.InputText(data[36], key='AOOR-APW')],
+                     [sg.Text('Activity Threshold', size=(16,1)), sg.InputText(data[37], key='AOOR-AT')],
+                     [sg.Text('Reaction Time', size=(16,1)), sg.InputText(data[38], key='AOOR-REAT')],
+                     [sg.Text('Response Factor', size=(16,1)), sg.InputText(data[39], key='AOOR-RF')],
+                     [sg.Text('Recovery Time', size=(16,1)), sg.InputText(data[40], key='AOOR-RT')],
+                     [sg.Button('Submit', key='SUB-AOOR')] ]
+
+    VOOR_layout = [  [sg.Text('Pacing Mode - VOOR', font=("Helvetica", 20))],
+                     [sg.Graph((500, 250), (0,0), (500, 250), background_color='white')],
+                     [sg.Text('Enter Parameters:', font=("Helvetica", 16))],
+                     [sg.Text('Lower Rate Limit', size=(16,1)), sg.InputText(data[41], key='VOOR-LRL')],
+                     [sg.Text('Upper Rate Limit', size=(16,1)), sg.InputText(data[42], key='VOOR-URL')],
+                     [sg.Text('Maximum Sensor Rate', size=(16,1)), sg.InputText(data[43], key='VOOR-MSR')],
+                     [sg.Text('Ventrical Amplitude', size=(16,1)), sg.InputText(data[44], key='VOOR-VA')],
+                     [sg.Text('Ventrical Pulse Width', size=(16,1)), sg.InputText(data[45], key='VOOR-VPW')],
+                     [sg.Text('Activity Threshold', size=(16,1)), sg.InputText(data[46], key='VOOR-AT')],
+                     [sg.Text('Reaction Time', size=(16,1)), sg.InputText(data[47], key='VOOR-REAT')],
+                     [sg.Text('Response Factor', size=(16,1)), sg.InputText(data[48], key='VOOR-RF')],
+                     [sg.Text('Recovery Time', size=(16,1)), sg.InputText(data[49], key='VOOR-RT')],
+                     [sg.Button('Submit', key='SUB-VOOR')] ]
+
+    AAIR_layout = [  [sg.Text('Pacing Mode - AAIR', font=("Helvetica", 20))],
+                     [sg.Graph((500, 250), (0,0), (500, 250), background_color='white')],
+                     [sg.Text('Enter Parameters:', font=("Helvetica", 16))],
+                     [sg.Text('Lower Rate Limit', size=(16,1)), sg.InputText(data[50], key='AAIR-LRL')],
+                     [sg.Text('Upper Rate Limit', size=(16,1)), sg.InputText(data[51], key='AAIR-URL')],
+                     [sg.Text('Maximum Sensor Rate', size=(16,1)), sg.InputText(data[52], key='AAIR-MSR')],
+                     [sg.Text('Atrial Amplitude', size=(16,1)), sg.InputText(data[53], key='AAIR-AA')],
+                     [sg.Text('Atrial Pulse Width', size=(16,1)), sg.InputText(data[54], key='AAIR-APW')],
+                     [sg.Text('Atrial Sensitivity', size=(16,1)), sg.InputText(data[55], key='AAIR-AS')],
+                     [sg.Text('ARP', size=(16,1)), sg.InputText(data[56], key='AAIR-ARP')],
+                     [sg.Text('PVARP', size=(16,1)), sg.InputText(data[57], key='AAIR-PVARP')],
+                     [sg.Text('Hysteresis', size=(16,1)), sg.InputText(data[58], key='AAIR-H')],
+                     [sg.Text('Rate Smoothing', size=(16,1)), sg.InputText(data[59], key='AAIR-RS')],
+                     [sg.Text('Activity Threshold', size=(16,1)), sg.InputText(data[60], key='AAIR-AT')],
+                     [sg.Text('Reaction Time', size=(16,1)), sg.InputText(data[61], key='AAIR-REAT')],
+                     [sg.Text('Response Factor', size=(16,1)), sg.InputText(data[62], key='AAIR-RF')],
+                     [sg.Text('Recovery Time', size=(16,1)), sg.InputText(data[63], key='AAIR-RT')],
+                     [sg.Button('Submit', key='SUB-AAIR')] ]
+
+    VVIR_layout = [  [sg.Text('Pacing Mode - VVIR', font=("Helvetica", 20))],
+                     [sg.Graph((500, 250), (0,0), (500, 250), background_color='white')],
+                     [sg.Text('Enter Parameters:', font=("Helvetica", 16))],
+                     [sg.Text('Lower Rate Limit', size=(16,1)), sg.InputText(data[64], key='VVIR-LRL')],
+                     [sg.Text('Upper Rate Limit', size=(16,1)), sg.InputText(data[65], key='VVIR-URL')],
+                     [sg.Text('Maximum Sensor Rate', size=(16,1)), sg.InputText(data[66], key='VVIR-MSR')],
+                     [sg.Text('Ventrical Amplitude', size=(16,1)), sg.InputText(data[67], key='VVIR-VA')],
+                     [sg.Text('Ventrical Pulse Width', size=(16,1)), sg.InputText(data[68], key='VVIR-VPW')],
+                     [sg.Text('Ventrical Sensitivity', size=(16,1)), sg.InputText(data[69], key='VVIR-VS')],
+                     [sg.Text('VRP', size=(16,1)), sg.InputText(data[70], key='VVIR-VRP')],
+                     [sg.Text('Hysteresis', size=(16,1)), sg.InputText(data[71], key='VVIR-H')],
+                     [sg.Text('Rate Smoothing', size=(16,1)), sg.InputText(data[72], key='VVIR-RS')],
+                     [sg.Text('Activity Threshold', size=(16,1)), sg.InputText(data[73], key='VVIR-AT')],
+                     [sg.Text('Reaction Time', size=(16,1)), sg.InputText(data[74], key='VVIR-REAT')],
+                     [sg.Text('Response Factor', size=(16,1)), sg.InputText(data[75], key='VVIR-RF')],
+                     [sg.Text('Recovery Time', size=(16,1)), sg.InputText(data[76], key='VVIR-RT')],
+                     [sg.Button('Submit', key='SUB-VVIR')] ]
+
+    DOOR_layout = [  [sg.Text('Pacing Mode - DOOR', font=("Helvetica", 20))],
+                     [sg.Graph((500, 250), (0,0), (500, 250), background_color='white')],
+                     [sg.Text('Enter Parameters:', font=("Helvetica", 16))],
+                     [sg.Text('Lower Rate Limit', size=(16,1)), sg.InputText(data[77], key='DOOR-LRL')],
+                     [sg.Text('Upper Rate Limit', size=(16,1)), sg.InputText(data[78], key='DOOR-URL')],
+                     [sg.Text('Maximum Sensor Rate', size=(16,1)), sg.InputText(data[79], key='DOOR-MSR')],
+                     [sg.Text('Fixed AV Delay', size=(16,1)), sg.InputText(data[80], key='DOOR-FAD')],
+                     [sg.Text('Atrial Amplitude', size=(16,1)), sg.InputText(data[81], key='DOOR-AA')],
+                     [sg.Text('Atrial Pulse Width', size=(16,1)), sg.InputText(data[82], key='DOOR-APW')],
+                     [sg.Text('Ventrical Amplitude', size=(16,1)), sg.InputText(data[83], key='DOOR-VA')],
+                     [sg.Text('Ventrical Pulse Width', size=(16,1)), sg.InputText(data[84], key='DOOR-VPW')],
+                     [sg.Text('Activity Threshold', size=(16,1)), sg.InputText(data[85], key='DOOR-AT')],
+                     [sg.Text('Reaction Time', size=(16,1)), sg.InputText(data[86], key='DOOR-REAT')],
+                     [sg.Text('Response Factor', size=(16,1)), sg.InputText(data[87], key='DOOR-RF')],
+                     [sg.Text('Recovery Time', size=(16,1)), sg.InputText(data[88], key='DOOR-RT')],
+                     [sg.Button('Submit', key='SUB-DOOR')] ]
+
     pacing_layout = [ 
         [
             sg.TabGroup
@@ -61,7 +155,13 @@ def make_parameters(data):
                         sg.Tab('AOO', AOO_layout),
                         sg.Tab('VOO', VOO_layout),
                         sg.Tab('AAI', AAI_layout), 
-                        sg.Tab('VVI', VVI_layout)
+                        sg.Tab('VVI', VVI_layout),
+                        sg.Tab('DOO', DOO_layout),
+                        sg.Tab('AOOR', AOOR_layout),
+                        sg.Tab('VOOR', VOOR_layout),
+                        sg.Tab('AAIR', AAIR_layout),
+                        sg.Tab('VVIR', VVIR_layout),
+                        sg.Tab('DOOR', DOOR_layout)
                     ]
                 ]
             )
