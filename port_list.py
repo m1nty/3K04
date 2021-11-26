@@ -8,12 +8,31 @@ def list_ports():
 
 list_ports()
 
-ser = serial.Serial('COM3', timeout=0)
-mode = b''
-mode += struct.pack('!B', 3)
-print(mode)
+# ser = serial.Serial('COM4', timeout=0)
 
-ser.write(mode)
+string3 = (1).to_bytes(1, byteorder='big')
+string3 += (60).to_bytes(2, byteorder='big')
+print(string3)
+string3 += (120).to_bytes(2, byteorder='big')
+string3 += (120).to_bytes(2, byteorder='big')
+string3 += (150).to_bytes(2, byteorder='big')
+string3 += (5.0).to_bytes(2, byteorder='big')
+string3 += (5.0).to_bytes(2, byteorder='big')
+string3 += (0.4).to_bytes(2, byteorder='big')
+string3 += (0.4).to_bytes(2, byteorder='big')
+string3 += (320).to_bytes(2, byteorder='big')
+string3 += (250).to_bytes(2, byteorder='big')
+string3 += (1).to_bytes(2, byteorder='big')
+string3 += (20).to_bytes(2, byteorder='big')
+string3 += (1).to_bytes(2, byteorder='big')
+string3 += (120).to_bytes(2, byteorder='big')
+
+
+print(string3)
+
+final = b'\\x16\\x55\\'
+
+# ser.write(mode)
 # s = ser.read(10)
 # print(s)
 
