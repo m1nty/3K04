@@ -59,7 +59,7 @@ class DCM:
                     DCM.default_paramaters(self.username, param_keys, param_limits)
                     sg.popup("User successfully registered.")
                 
-            if event in ['SUB-AOO', 'SUB-VOO', 'SUB-AAI', 'SUB-VVI']:
+            if event in ['SUB-AOO', 'SUB-VOO', 'SUB-AAI', 'SUB-VVI', 'SUB-DOO', 'SUB-AOOR', 'SUB-VOOR', 'SUB-AAIR', 'SUB-VVIR', 'SUB-DOOR']:
                 DCM.submit_parameters(self.username, values, param_keys, param_limits)
 
 
@@ -156,8 +156,10 @@ class DCM:
             if(x==0 or x==1):
                 continue
             curr_key = param_keys[x-2]
+            valid_params = [str(x) for x in param_limits[curr_key.split('-')[1]]['valid']]
 
-            if values[curr_key] in str(param_limits[curr_key.split('-')[1]]):
+            
+            if values[curr_key] in valid_params:
                 user[x] = values[curr_key]
             else:
                 sg.popup("Parameter out of bounds: {}".format(curr_key))
