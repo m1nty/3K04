@@ -158,7 +158,6 @@ class DCM:
             curr_key = param_keys[x-2]
             valid_params = [str(x) for x in param_limits[curr_key.split('-')[1]]['valid']]
 
-            
             if values[curr_key] in valid_params:
                 user[x] = values[curr_key]
             else:
