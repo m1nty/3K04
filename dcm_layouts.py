@@ -8,7 +8,6 @@ sg.theme('Dark')
 #method so that the pacemaker screens can access data
 def make_parameters(data):
     AOO_layout = [  [sg.Text('Pacing Mode - AOO', font=("Helvetica", 20))],
-                    [sg.Graph((500, 250), (0,0), (500, 250), background_color='white', key="-GRAPH-")],
                     [sg.Text('Enter Parameters:', font=("Helvetica", 16))],
                     [sg.Text('Lower Rate Limit', size=(16,1)), sg.InputText(data[0], key='AOO-LRL')],
                     [sg.Text('Upper Rate Limit', size=(16,1)), sg.InputText(data[1], key='AOO-URL')],
@@ -17,7 +16,6 @@ def make_parameters(data):
                     [sg.Button('Submit', key='SUB-AOO')] ]
 
     VOO_layout = [  [sg.Text('Pacing Mode - VOO', font=("Helvetica", 20))],
-                    [sg.Graph((500, 250), (0,0), (500, 250), background_color='white')],
                     [sg.Text('Enter Parameters:', font=("Helvetica", 16))],
                     [sg.Text('Lower Rate Limit', size=(16,1)), sg.InputText(data[4], key='VOO-LRL')],
                     [sg.Text('Upper Rate Limit', size=(16,1)), sg.InputText(data[5], key='VOO-URL')],
@@ -26,7 +24,6 @@ def make_parameters(data):
                     [sg.Button('Submit', key='SUB-VOO')] ]
 
     AAI_layout = [  [sg.Text('Pacing Mode - AAI', font=("Helvetica", 20))],
-                    [sg.Graph((500, 250), (0,0), (500, 250), background_color='white')],
                     [sg.Text('Enter Parameters:', font=("Helvetica", 16))],
                     [sg.Text('Lower Rate Limit', size=(16,1)), sg.InputText(data[8], key='AAI-LRL')],
                     [sg.Text('Upper Rate Limit', size=(16,1)), sg.InputText(data[9], key='AAI-URL')],
@@ -36,7 +33,6 @@ def make_parameters(data):
                     [sg.Button('Submit', key='SUB-AAI')] ]
 
     VVI_layout = [  [sg.Text('Pacing Mode - VVI', font=("Helvetica", 20))],
-                    [sg.Graph((500, 250), (0,0), (500, 250), background_color='white')],
                     [sg.Text('Enter Parameters:', font=("Helvetica", 16))],
                     [sg.Text('Lower Rate Limit', size=(16,1)), sg.InputText(data[13], key='VVI-LRL')],
                     [sg.Text('Upper Rate Limit', size=(16,1)), sg.InputText(data[14], key='VVI-URL')],
@@ -46,7 +42,6 @@ def make_parameters(data):
                     [sg.Button('Submit', key='SUB-VVI')] ]
 
     DOO_layout = [  [sg.Text('Pacing Mode - DOO', font=("Helvetica", 20))],
-                    [sg.Graph((500, 250), (0,0), (500, 250), background_color='white')],
                     [sg.Text('Enter Parameters:', font=("Helvetica", 16))],
                     [sg.Text('Lower Rate Limit', size=(16,1)), sg.InputText(data[18], key='DOO-LRL')],
                     [sg.Text('Upper Rate Limit', size=(16,1)), sg.InputText(data[19], key='DOO-URL')],
@@ -58,7 +53,6 @@ def make_parameters(data):
                     [sg.Button('Submit', key='SUB-DOO')] ]
 
     AOOR_layout = [  [sg.Text('Pacing Mode - AOOR', font=("Helvetica", 20))],
-                     [sg.Graph((500, 250), (0,0), (500, 250), background_color='white')],
                      [sg.Text('Enter Parameters:', font=("Helvetica", 16))],
                      [sg.Text('Lower Rate Limit', size=(16,1)), sg.InputText(data[25], key='AOOR-LRL')],
                      [sg.Text('Upper Rate Limit', size=(16,1)), sg.InputText(data[26], key='AOOR-URL')],
@@ -72,7 +66,6 @@ def make_parameters(data):
                      [sg.Button('Submit', key='SUB-AOOR')] ]
 
     VOOR_layout = [  [sg.Text('Pacing Mode - VOOR', font=("Helvetica", 20))],
-                     [sg.Graph((500, 250), (0,0), (500, 250), background_color='white')],
                      [sg.Text('Enter Parameters:', font=("Helvetica", 16))],
                      [sg.Text('Lower Rate Limit', size=(16,1)), sg.InputText(data[34], key='VOOR-LRL')],
                      [sg.Text('Upper Rate Limit', size=(16,1)), sg.InputText(data[35], key='VOOR-URL')],
@@ -86,7 +79,6 @@ def make_parameters(data):
                      [sg.Button('Submit', key='SUB-VOOR')] ]
 
     AAIR_layout = [  [sg.Text('Pacing Mode - AAIR', font=("Helvetica", 20))],
-                     [sg.Graph((500, 250), (0,0), (500, 250), background_color='white')],
                      [sg.Text('Enter Parameters:', font=("Helvetica", 16))],
                      [sg.Text('Lower Rate Limit', size=(16,1)), sg.InputText(data[43], key='AAIR-LRL')],
                      [sg.Text('Upper Rate Limit', size=(16,1)), sg.InputText(data[44], key='AAIR-URL')],
@@ -101,7 +93,6 @@ def make_parameters(data):
                      [sg.Button('Submit', key='SUB-AAIR')] ]
 
     VVIR_layout = [  [sg.Text('Pacing Mode - VVIR', font=("Helvetica", 20))],
-                     [sg.Graph((500, 250), (0,0), (500, 250), background_color='white')],
                      [sg.Text('Enter Parameters:', font=("Helvetica", 16))],
                      [sg.Text('Lower Rate Limit', size=(16,1)), sg.InputText(data[53], key='VVIR-LRL')],
                      [sg.Text('Upper Rate Limit', size=(16,1)), sg.InputText(data[54], key='VVIR-URL')],
@@ -116,7 +107,6 @@ def make_parameters(data):
                      [sg.Button('Submit', key='SUB-VVIR')] ]
 
     DOOR_layout = [  [sg.Text('Pacing Mode - DOOR', font=("Helvetica", 20))],
-                     [sg.Graph((500, 250), (0,0), (500, 250), background_color='white')],
                      [sg.Text('Enter Parameters:', font=("Helvetica", 16))],
                      [sg.Text('Lower Rate Limit', size=(16,1)), sg.InputText(data[63], key='DOOR-LRL')],
                      [sg.Text('Upper Rate Limit', size=(16,1)), sg.InputText(data[64], key='DOOR-URL')],
@@ -155,6 +145,38 @@ def make_parameters(data):
     ]
     return pacing_layout
 
+def make_post_submit_layout():
+    post_submit_layout = [
+        [sg.Button('View Atrial E-GRAM data', key='DISPLAY-A-EGRAM')],
+        [sg.Button('View Ventrical E-GRAM data', key='DISPLAY-V-EGRAM')],
+        [sg.Button('View Atrial & Ventrical E-GRAM data', key='DISPLAY-BOTH-EGRAM')],
+        [sg.Button('Verify Parameters', key='VERIFY-PARAM-BUTTON')]
+    ] 
+
+    return sg.Window('Pacemaker DCM', post_submit_layout)
+
+def make_v_egram_layout():
+    v_egram_layout = [
+        [sg.Graph((500, 125), (0, 0), (500, 125), background_color='white', key="V-GRAPH")],
+    ] 
+
+    return sg.Window('Ventrical E-GRAM', v_egram_layout)
+
+def make_a_egram_layout():
+    a_egram_layout = [
+        [sg.Graph((500, 125), (0, 0), (500, 125), background_color='white', key="A-GRAPH")],
+    ] 
+
+    return sg.Window('Atrial E-GRAM', a_egram_layout)
+
+def make_a_v_egram_layout():
+    a_v_egram_layout = [
+        [sg.Graph((500, 255), (0, 130), (500, 255), background_color='white', key="A-GRAPH")],
+        [sg.Graph((500, 255), (0, 0), (500, 125), background_color='white', key="V-GRAPH")]
+    ] 
+
+    return sg.Window('Atrial & Ventrical E-GRAM', a_v_egram_layout)
+
 # Set up the columns for the welcome/login screen
 welcome_column = [
     [sg.Text("Welcome to the Pacemaker DCM")],
@@ -179,3 +201,4 @@ landing_layout = [
         sg.Column(log_in_column),
     ]
 ]
+

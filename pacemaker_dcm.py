@@ -1,7 +1,9 @@
 # Imports
 import PySimpleGUI as sg
-from dcm_layouts import landing_layout, make_parameters
 import json
+from dcm_layouts import landing_layout, make_parameters, make_post_submit_layout
+from dcm_serial import SerialDCM
+
 
 # Set theme of GUI
 sg.theme('Dark')
@@ -59,10 +61,236 @@ class DCM:
                     DCM.default_paramaters(self.username, param_keys, param_limits)
                     sg.popup("User successfully registered.")
                 
-            if event in ['SUB-AOO', 'SUB-VOO', 'SUB-AAI', 'SUB-VVI', 'SUB-DOO', 'SUB-AOOR', 'SUB-VOOR', 'SUB-AAIR', 'SUB-VVIR', 'SUB-DOOR']:
+            if event == 'SUB-VOO':
                 DCM.submit_parameters(self.username, values, param_keys, param_limits)
 
+                param_dict = {'mode': 1,
+                              'LRL': values['VOO-LRL'],
+                              'URL': values['VOO-URL'],
+                              'MSR': 1,
+                              'FAD': 1,
+                              'AA': 1,
+                              'VA': values['VOO-VA'],
+                              'APW': 1,
+                              'VPW': values['VOO-VPW'],
+                              'VRP': 1,
+                              'ARP': 1,
+                              'AT': 'Low',
+                              'REAT': 1,
+                              'RF': 1,
+                              'RT': 1}
 
+                self.serial_conn = SerialDCM()
+                self.serial_conn.send_params(param_dict)
+                self.run_post_submit()
+
+            if event == 'SUB-VVI':
+                DCM.submit_parameters(self.username, values, param_keys, param_limits)
+
+                param_dict = {'mode': 2,
+                              'LRL': values['VVI-LRL'],
+                              'URL': values['VOO-URL'],
+                              'MSR': 1,
+                              'FAD': 1,
+                              'AA': 1,
+                              'VA': values['VVI-VA'],
+                              'APW': 1,
+                              'VPW': values['VVI-VPW'],
+                              'VRP': values['VVI-VRP'],
+                              'ARP': 1,
+                              'AT': 'Low',
+                              'REAT': 1,
+                              'RF': 1,
+                              'RT': 1}
+
+                self.serial_conn = SerialDCM()
+                self.serial_conn.send_params(param_dict)
+                self.run_post_submit()
+
+            if event == 'SUB-AOO':
+                DCM.submit_parameters(self.username, values, param_keys, param_limits)
+
+                param_dict = {'mode': 3,
+                              'LRL': values['AOO-LRL'],
+                              'URL': values['AOO-URL'],
+                              'MSR': 1,
+                              'FAD': 1,
+                              'AA': values['AOO-AA'],
+                              'VA': 1,
+                              'APW': values['AOO-APW'],
+                              'VPW': 1,
+                              'VRP': 1,
+                              'ARP': 1,
+                              'AT': 'Low',
+                              'REAT': 1,
+                              'RF': 1,
+                              'RT': 1}
+
+                self.serial_conn = SerialDCM()
+                self.serial_conn.send_params(param_dict)
+                self.run_post_submit()
+
+            if event == 'SUB-AAI':
+                DCM.submit_parameters(self.username, values, param_keys, param_limits)
+
+                param_dict = {'mode': 4,
+                              'LRL': values['AAI-LRL'],
+                              'URL': values['AAI-URL'],
+                              'MSR': 1,
+                              'FAD': 1,
+                              'AA': values['AAI-AA'],
+                              'VA': 1,
+                              'APW': values['AAI-APW'],
+                              'VPW': 1,
+                              'VRP': 1,
+                              'ARP': values['AAI-ARP'],
+                              'AT': 'Low',
+                              'REAT': 1,
+                              'RF': 1,
+                              'RT': 1}
+
+                self.serial_conn = SerialDCM()
+                self.serial_conn.send_params(param_dict)
+                self.run_post_submit()
+
+            if event == 'SUB-DOO':
+                DCM.submit_parameters(self.username, values, param_keys, param_limits)
+
+                param_dict = {'mode': 5,
+                              'LRL': values['DOO-LRL'],
+                              'URL': values['DOO-URL'],
+                              'MSR': 1,
+                              'FAD': values['DOO-FAD'],
+                              'AA': values['DOO-AA'],
+                              'VA': values['DOO-VA'],
+                              'APW': values['DOO-APW'],
+                              'VPW': values['DOO-VPW'],
+                              'VRP': 1,
+                              'ARP': 1,
+                              'AT': 'Low',
+                              'REAT': 1,
+                              'RF': 1,
+                              'RT': 1}
+
+                self.serial_conn = SerialDCM()
+                self.serial_conn.send_params(param_dict)
+                self.run_post_submit()
+
+            if event == 'SUB-VOOR':
+                DCM.submit_parameters(self.username, values, param_keys, param_limits)
+
+                param_dict = {'mode': 6,
+                              'LRL': values['VOOR-LRL'],
+                              'URL': values['VOOR-URL'],
+                              'MSR': values['VOOR-MSR'],
+                              'FAD': 1,
+                              'AA': 1,
+                              'VA': values['VOOR-VA'],
+                              'APW': 1,
+                              'VPW': values['VOOR-VPW'],
+                              'VRP': 1,
+                              'ARP': 1,
+                              'AT': values['VOOR-AT'],
+                              'REAT': values['VOOR-REAT'],
+                              'RF': values['VOOR-RF'],
+                              'RT': values['VOOR-RT']}
+
+                self.serial_conn = SerialDCM()
+                self.serial_conn.send_params(param_dict)
+                self.run_post_submit()
+
+            if event == 'SUB-VVIR':
+                DCM.submit_parameters(self.username, values, param_keys, param_limits)
+
+                param_dict = {'mode': 7,
+                              'LRL': values['VVIR-LRL'],
+                              'URL': values['VVIR-URL'],
+                              'MSR': values['VVIR-MSR'],
+                              'FAD': 1,
+                              'AA': 1,
+                              'VA': values['VVIR-VA'],
+                              'APW': 1,
+                              'VPW': values['VVIR-VPW'],
+                              'VRP': values['VVIR-VRP'],
+                              'ARP': 1,
+                              'AT': values['VVIR-AT'],
+                              'REAT': values['VVIR-REAT'],
+                              'RF': values['VVIR-RF'],
+                              'RT': values['VVIR-RT']}
+
+                self.serial_conn = SerialDCM()
+                self.serial_conn.send_params(param_dict)
+                self.run_post_submit()
+
+            if event == 'SUB-AOOR':
+                DCM.submit_parameters(self.username, values, param_keys, param_limits)
+
+                param_dict = {'mode': 8,
+                              'LRL': values['AOOR-LRL'],
+                              'URL': values['AOOR-URL'],
+                              'MSR': values['AOOR-MSR'],
+                              'FAD': 1,
+                              'AA': values['AOOR-AA'],
+                              'VA': 1,
+                              'APW': values['AOOR-APW'],
+                              'VPW': 1,
+                              'VRP': 1,
+                              'ARP': 1,
+                              'AT': values['AOOR-AT'],
+                              'REAT': values['AOOR-REAT'],
+                              'RF': values['AOOR-RF'],
+                              'RT': values['AOOR-RT']}
+
+                self.serial_conn = SerialDCM()
+                self.serial_conn.send_params(param_dict)
+                self.run_post_submit()
+
+            if event == 'SUB-AAIR':
+                DCM.submit_parameters(self.username, values, param_keys, param_limits)
+
+                param_dict = {'mode': 9,
+                              'LRL': values['AAIR-LRL'],
+                              'URL': values['AAIR-URL'],
+                              'MSR': values['AAIR-MSR'],
+                              'FAD': 1,
+                              'AA': values['AAIR-AA'],
+                              'VA': 1,
+                              'APW': values['AAIR-APW'],
+                              'VPW': 1,
+                              'VRP': 1,
+                              'ARP': values['AAIR-ARP'],
+                              'AT': values['AAIR-AT'],
+                              'REAT': values['AAIR-REAT'],
+                              'RF': values['AAIR-RF'],
+                              'RT': values['AAIR-RT']}
+
+                self.serial_conn = SerialDCM()
+                self.serial_conn.send_params(param_dict)
+                self.run_post_submit()
+
+            if event == 'SUB-DOOR':
+                DCM.submit_parameters(self.username, values, param_keys, param_limits)
+
+                param_dict = {'mode': 10,
+                              'LRL': values['DOOR-LRL'],
+                              'URL': values['DOOR-URL'],
+                              'MSR': values['DOOR-MSR'],
+                              'FAD': values['DOOR-FAD'],
+                              'AA': values['DOOR-AA'],
+                              'VA': values['DOOR-VA'],
+                              'APW': values['DOOR-APW'],
+                              'VPW': values['DOOR-VPW'],
+                              'VRP': 1,
+                              'ARP': 1,
+                              'AT': values['DOOR-AT'],
+                              'REAT': values['DOOR-REAT'],
+                              'RF': values['DOOR-RF'],
+                              'RT': values['DOOR-RT']}
+
+                self.serial_conn = SerialDCM()
+                self.serial_conn.send_params(param_dict)
+                self.run_post_submit()
+                
         self.window.close()
 
     def run_pacing_screen(self):
@@ -70,6 +298,30 @@ class DCM:
         # Initialize pacing window layout
         pace_lay = make_parameters(DCM.set_paramaters(self.username))
         self.window = sg.Window('Pacemaker DCM', pace_lay)
+
+    def run_post_submit(self):
+
+        self.window2 = make_post_submit_layout()
+        while True:
+            # Read in event and input values
+            event, values = self.window2.read()
+
+            if event == "Exit" or event == sg.WIN_CLOSED:
+                break
+
+            if event == 'VERIFY-PARAM-BUTTON':
+                self.serial_conn.verify_params()
+
+            if event == 'DISPLAY-BOTH-EGRAM':
+                self.serial_conn.get_all_egram_data()
+
+            if event == 'DISPLAY-A-EGRAM':
+                self.serial_conn.get_a_egram_data()
+
+            if event == 'DISPLAY-V-EGRAM':
+                self.serial_conn.get_v_egram_data()
+
+        self.window2.close()
 
     # This method authenticates the user login
     @staticmethod
