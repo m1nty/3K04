@@ -38,6 +38,8 @@ class SerialDCM:
         self.packets.append(struct.pack('<B', int(param_dict['RT']))) # param_dict['RT']
 
         with serial.Serial(port=self.port, baudrate=self.baudrate) as ser:
+            ser.reset_input_buffer()
+            ser.reset_output_buffer()
             for packet in self.packets:
                 ser.write(packet)
         
@@ -62,116 +64,136 @@ class SerialDCM:
         # if len(self.packets) < 47:
         #     raise Exception('Please submit parameters prior to requesting egram data!')
   
-        self.packets[1] = b'\x22'
+        self.packets[1] = b'\x33'
         
         GRAPH_SIZE = (500, 125)
-        delay = x = lastx = lasty1 = lasty2 = 0
+        x = lastx = lasty1 = lasty2 = 0
         step_size, delay = 1, 1
         
         self.window3 = make_a_v_egram_layout()
         
         with serial.Serial(port=self.port, baudrate=self.baudrate) as ser:
+            ser.reset_input_buffer()
+            ser.reset_output_buffer()
+            for packet in self.packets:
+                ser.write(packet)
             while True:
-                for packet in self.packets:
-                    ser.write(packet)
-
                 self.egram_byte_string = ser.read(59)
                 atrial = struct.unpack('<d', self.egram_byte_string[43:51])
                 ventrical = struct.unpack('<d', self.egram_byte_string[51:59])
-
+                print('atrial: {} | ventrical: {}'.format(atrial, ventrical))
                 event, values = self.window3.read(timeout=delay)
                 
                 if event == "Exit" or event == sg.WIN_CLOSED:
                     break
 
-                y1 = ventrical[0] # determine the atrial/ventrical size (convert from byte string) and place here
-                y2 = 130 + atrial[0]
+                y1 = ventrical[0]*100 # determine the atrial/ventrical size (convert from byte string) and place here
+                y2 = 130 + atrial[0]*100
                 if x <= GRAPH_SIZE[0] + 1:               # if still drawing initial width of graph
                     self.window3['A-GRAPH'].DrawLine((lastx, lasty2), (x, y2), width=1)
                     self.window3['V-GRAPH'].DrawLine((lastx, lasty1), (x, y1), width=1)
                 else:                               # finished drawing full graph width so move each time to make room
-                    self.window3['A-GRAPH'].Move(-step_size, 0)
-                    self.window3['V-GRAPH'].Move(-step_size, 0)
-
+                    x = lastx = lasty1 = lasty2 = 0
+                    self.window3['A-GRAPH'].erase()
+                    self.window3['V-GRAPH'].erase()
                     self.window3['A-GRAPH'].DrawLine((lastx, lasty2), (x, y2), width=1)
                     self.window3['V-GRAPH'].DrawLine((lastx, lasty1), (x, y1), width=1)
-                    x -= step_size
+                    
 
                 lastx, lasty1, lasty2 = x, y1, y2
                 x += step_size
-        
+            ser.reset_input_buffer()
+            ser.reset_output_buffer()
+
+            self.packets[1] = b'\x44'
+            for packet in self.packets:
+                ser.write(packet)
+
         self.window3.close()
 
     def get_a_egram_data(self):
-        self.packets[1] = b'\x22'
+        self.packets[1] = b'\x33'
         
         GRAPH_SIZE = (500, 125)
-        delay = x = lastx = lasty = 0
-        step_size, delay = 1, 15
+        x = lastx = lasty = 0
+        step_size, delay = 1, 1
         
         self.window3 = make_a_egram_layout()
 
         with serial.Serial(port=self.port, baudrate=self.baudrate) as ser:
+            ser.reset_input_buffer()
+            ser.reset_output_buffer()
+            for packet in self.packets:
+                ser.write(packet)
             while True:
-
-                # for packet in self.packets:
-                #     ser.write(packet)
-
-                # self.egram_byte_string = ser.read(59)
+                self.egram_byte_string = ser.read(59)
+                atrial = struct.unpack('<d', self.egram_byte_string[43:51])
 
                 event, values = self.window3.read(timeout=delay)
 
                 if event == "Exit" or event == sg.WIN_CLOSED:
                     break
                 
-                y = 20 # determine the atrial/ventrical size (convert from byte string) and place here
+                y = atrial[0]*100 # determine the atrial/ventrical size (convert from byte string) and place here
 
                 if x < GRAPH_SIZE[0]:               # if still drawing initial width of graph
                     self.window3['A-GRAPH'].DrawLine((lastx, lasty), (x, y), width=1)
                 else:                               # finished drawing full graph width so move each time to make room
-                    self.window3['A-GRAPH'].Move(-step_size, 0)
+                    x = lastx = lasty = 0
+                    self.window3['A-GRAPH'].erase()
                     self.window3['A-GRAPH'].DrawLine((lastx, lasty), (x, y), width=1)
-                    x -= step_size
 
                 lastx, lasty = x, y
                 x += step_size
+            ser.reset_input_buffer()
+            ser.reset_output_buffer()
+
+            self.packets[1] = b'\x44'
+            for packet in self.packets:
+                ser.write(packet)
         self.window3.close()
 
     def get_v_egram_data(self):
-        self.packets[1] = b'\x22'
+        self.packets[1] = b'\x33'
         
         GRAPH_SIZE = (500, 125)
-        delay = x = lastx = lasty = 0
-        step_size, delay = 1, 15
+        x = lastx = lasty = 0
+        step_size, delay = 1, 1
         
         self.window3 = make_v_egram_layout()
 
         with serial.Serial(port=self.port, baudrate=self.baudrate) as ser:
+            ser.reset_input_buffer()
+            ser.reset_output_buffer()
+            for packet in self.packets:
+                ser.write(packet)
             while True:
-
-                # for packet in self.packets:
-                #     ser.write(packet)
-
-                # self.egram_byte_string = ser.read(59)
+                self.egram_byte_string = ser.read(59)
+                ventrical = struct.unpack('<d', self.egram_byte_string[51:59])
 
                 event, values = self.window3.read(timeout=delay)
 
                 if event == "Exit" or event == sg.WIN_CLOSED:
                     break
                 
-                y = 20 # determine the atrial/ventrical size (convert from byte string) and place here
+                y = ventrical[0]*100 # determine the atrial/ventrical size (convert from byte string) and place here
 
                 if x < GRAPH_SIZE[0]:             # if still drawing initial width of graph
                     self.window3['V-GRAPH'].DrawLine((lastx, lasty), (x, y), width=1)
                 else:                               # finished drawing full graph width so move each time to make room
-                    self.window3['V-GRAPH'].Move(-step_size, 0)
+                    x = lastx = lasty = 0
+                    self.window3['V-GRAPH'].erase()
                     self.window3['V-GRAPH'].DrawLine((lastx, lasty), (x, y), width=1)
-                    x -= step_size
 
                 lastx, lasty = x, y
                 x += step_size
+            ser.reset_input_buffer()
+            ser.reset_output_buffer()
+
+            self.packets[1] = b'\x44'
+            for packet in self.packets:
+                ser.write(packet)
         self.window3.close()
-        
 
 
 

@@ -157,14 +157,14 @@ def make_post_submit_layout():
 
 def make_v_egram_layout():
     v_egram_layout = [
-        [sg.Graph((500, 125), (0, 0), (500, 125), background_color='white', key="V-GRAPH")],
+        [sg.Graph((500, 255), (0, 0), (500, 125), background_color='white', key="V-GRAPH")],
     ] 
 
     return sg.Window('Ventrical E-GRAM', v_egram_layout)
 
 def make_a_egram_layout():
     a_egram_layout = [
-        [sg.Graph((500, 125), (0, 0), (500, 125), background_color='white', key="A-GRAPH")],
+        [sg.Graph((500, 255), (0, 0), (500, 125), background_color='white', key="A-GRAPH")],
     ] 
 
     return sg.Window('Atrial E-GRAM', a_egram_layout)

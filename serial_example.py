@@ -24,26 +24,40 @@ string = b''
 
 for packet in packets:
     string += packet
-print(string)
-print(len(string))
+
 with serial.Serial(port='COM4', baudrate=115200) as ser:
     for packet in packets:
         ser.write(packet)
 
-packets[1] = b'\x22'
+
+# with serial.Serial(port='COM4', baudrate=115200) as ser:
+
+#     packets[1] = b'\x44'
+#     for packet in packets:
+#         ser.write(packet)
+
+packets[1] = b'\x33'
+
 count = 0
 with serial.Serial(port='COM4', baudrate=115200) as ser:
+    for packet in packets:
+        ser.write(packet)
     while True:
-        for packet in packets:
-            ser.write(packet)
         data = ser.read(59)
         atrial = struct.unpack('<d', data[43:51])
         ventrical = struct.unpack('<d', data[51:59])
         print('atrial: {} | ventrical: {}'.format(atrial, ventrical))
-        if count == 2000: break
+        if count == 100: break
         count += 1
-        
+    ser.reset_input_buffer()
+    ser.reset_output_buffer()
+    packets[1] = b'\x44'
+    for packet in packets:
+        ser.write(packet)
 
+# with serial.Serial(port='COM4', baudrate=115200) as ser:
+#     while data:
+#         data = ser.read(59)
 
 
 
