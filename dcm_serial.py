@@ -5,7 +5,7 @@ import struct
 from dcm_layouts import make_a_v_egram_layout, make_a_egram_layout, make_v_egram_layout
 
 class SerialDCM:
-    def __init__(self, port='COM4', baudrate=115200):
+    def __init__(self, port='COM5', baudrate=115200):
         self.port = port
         self.baudrate = baudrate
         self.packets = []
@@ -36,18 +36,14 @@ class SerialDCM:
         self.packets.append(struct.pack('<B', int(param_dict['REAT']))) # param_dict['REAT']
         self.packets.append(struct.pack('<B', int(param_dict['RF']))) # param_dict['RF']
         self.packets.append(struct.pack('<B', int(param_dict['RT']))) # param_dict['RT']
-
+        print(self.packets)
         with serial.Serial(port=self.port, baudrate=self.baudrate) as ser:
-            ser.reset_input_buffer()
-            ser.reset_output_buffer()
+            
             for packet in self.packets:
                 ser.write(packet)
         
 
-    def verify_params(self, param_dict):
-        if len(self.packets) < 47:
-            raise Exception('Please submit parameters prior to verifying!')
-
+    def verify_params(self):
         self.packets[1] = b'\x22'
 
         with serial.Serial(port=self.port, baudrate=self.baudrate) as ser:
@@ -56,40 +52,44 @@ class SerialDCM:
 
             self.params_byte_string = ser.read(59)
 
-        # Do a verification to check if these parameters match
+        byte_string = b''
+        for packet in self.packets:
+            byte_string += packet
 
+        if byte_string[2:] == self.params_byte_string[:43]:
+            sg.popup("The parameters are verified!")
+        else:
+            sg.popup("The parameters are incorrect!")
 
     # TO-DO: Need to allow for two different graphs, one for atrial, one for ventrical, and option for both to be showing as well
     def get_all_egram_data(self):
         # if len(self.packets) < 47:
         #     raise Exception('Please submit parameters prior to requesting egram data!')
   
-        self.packets[1] = b'\x33'
+        self.packets[1] = b'\x22'
         
-        GRAPH_SIZE = (500, 125)
+        GRAPH_SIZE_X = 800
         x = lastx = lasty1 = lasty2 = 0
         step_size, delay = 1, 1
         
         self.window3 = make_a_v_egram_layout()
         
         with serial.Serial(port=self.port, baudrate=self.baudrate) as ser:
-            ser.reset_input_buffer()
-            ser.reset_output_buffer()
-            for packet in self.packets:
-                ser.write(packet)
             while True:
+                for packet in self.packets:
+                    ser.write(packet)
                 self.egram_byte_string = ser.read(59)
                 atrial = struct.unpack('<d', self.egram_byte_string[43:51])
                 ventrical = struct.unpack('<d', self.egram_byte_string[51:59])
-                print('atrial: {} | ventrical: {}'.format(atrial, ventrical))
+
                 event, values = self.window3.read(timeout=delay)
                 
                 if event == "Exit" or event == sg.WIN_CLOSED:
                     break
 
-                y1 = ventrical[0]*100 # determine the atrial/ventrical size (convert from byte string) and place here
-                y2 = 130 + atrial[0]*100
-                if x <= GRAPH_SIZE[0] + 1:               # if still drawing initial width of graph
+                y1 = 10*ventrical[0]/0.6 - 5 # determine the atrial/ventrical size (convert from byte string) and place here
+                y2 = 130 + 10*atrial[0]/0.6 - 5
+                if x < GRAPH_SIZE_X:               # if still drawing initial width of graph
                     self.window3['A-GRAPH'].DrawLine((lastx, lasty2), (x, y2), width=1)
                     self.window3['V-GRAPH'].DrawLine((lastx, lasty1), (x, y1), width=1)
                 else:                               # finished drawing full graph width so move each time to make room
@@ -102,30 +102,24 @@ class SerialDCM:
 
                 lastx, lasty1, lasty2 = x, y1, y2
                 x += step_size
-            ser.reset_input_buffer()
-            ser.reset_output_buffer()
 
-            self.packets[1] = b'\x44'
-            for packet in self.packets:
-                ser.write(packet)
 
         self.window3.close()
 
     def get_a_egram_data(self):
-        self.packets[1] = b'\x33'
+        self.packets[1] = b'\x22'
         
-        GRAPH_SIZE = (500, 125)
+        GRAPH_SIZE_X = 800
         x = lastx = lasty = 0
         step_size, delay = 1, 1
         
         self.window3 = make_a_egram_layout()
 
         with serial.Serial(port=self.port, baudrate=self.baudrate) as ser:
-            ser.reset_input_buffer()
-            ser.reset_output_buffer()
-            for packet in self.packets:
-                ser.write(packet)
+
             while True:
+                for packet in self.packets:
+                    ser.write(packet)
                 self.egram_byte_string = ser.read(59)
                 atrial = struct.unpack('<d', self.egram_byte_string[43:51])
 
@@ -134,9 +128,9 @@ class SerialDCM:
                 if event == "Exit" or event == sg.WIN_CLOSED:
                     break
                 
-                y = atrial[0]*100 # determine the atrial/ventrical size (convert from byte string) and place here
+                y = 10*atrial[0]/0.6 - 5 # determine the atrial/ventrical size (convert from byte string) and place here
 
-                if x < GRAPH_SIZE[0]:               # if still drawing initial width of graph
+                if x < GRAPH_SIZE_X:        # if still drawing initial width of graph
                     self.window3['A-GRAPH'].DrawLine((lastx, lasty), (x, y), width=1)
                 else:                               # finished drawing full graph width so move each time to make room
                     x = lastx = lasty = 0
@@ -145,29 +139,23 @@ class SerialDCM:
 
                 lastx, lasty = x, y
                 x += step_size
-            ser.reset_input_buffer()
-            ser.reset_output_buffer()
 
-            self.packets[1] = b'\x44'
-            for packet in self.packets:
-                ser.write(packet)
         self.window3.close()
 
     def get_v_egram_data(self):
-        self.packets[1] = b'\x33'
+        self.packets[1] = b'\x22'
         
-        GRAPH_SIZE = (500, 125)
+        GRAPH_SIZE_X = 800
         x = lastx = lasty = 0
         step_size, delay = 1, 1
         
         self.window3 = make_v_egram_layout()
 
         with serial.Serial(port=self.port, baudrate=self.baudrate) as ser:
-            ser.reset_input_buffer()
-            ser.reset_output_buffer()
-            for packet in self.packets:
-                ser.write(packet)
+            
             while True:
+                for packet in self.packets:
+                    ser.write(packet)
                 self.egram_byte_string = ser.read(59)
                 ventrical = struct.unpack('<d', self.egram_byte_string[51:59])
 
@@ -176,9 +164,9 @@ class SerialDCM:
                 if event == "Exit" or event == sg.WIN_CLOSED:
                     break
                 
-                y = ventrical[0]*100 # determine the atrial/ventrical size (convert from byte string) and place here
+                y = 10*ventrical[0]/0.6 - 5 # determine the atrial/ventrical size (convert from byte string) and place here
 
-                if x < GRAPH_SIZE[0]:             # if still drawing initial width of graph
+                if x < GRAPH_SIZE_X:             # if still drawing initial width of graph
                     self.window3['V-GRAPH'].DrawLine((lastx, lasty), (x, y), width=1)
                 else:                               # finished drawing full graph width so move each time to make room
                     x = lastx = lasty = 0
@@ -187,12 +175,7 @@ class SerialDCM:
 
                 lastx, lasty = x, y
                 x += step_size
-            ser.reset_input_buffer()
-            ser.reset_output_buffer()
 
-            self.packets[1] = b'\x44'
-            for packet in self.packets:
-                ser.write(packet)
         self.window3.close()
 
 

@@ -157,22 +157,24 @@ def make_post_submit_layout():
 
 def make_v_egram_layout():
     v_egram_layout = [
-        [sg.Graph((500, 255), (0, 0), (500, 125), background_color='white', key="V-GRAPH")],
+        [sg.Graph((800, 255), (0, -6), (800, 6), background_color='white', key="V-GRAPH")],
     ] 
 
     return sg.Window('Ventrical E-GRAM', v_egram_layout)
 
 def make_a_egram_layout():
     a_egram_layout = [
-        [sg.Graph((500, 255), (0, 0), (500, 125), background_color='white', key="A-GRAPH")],
+        [sg.Graph((800, 255), (0, -6), (800, 6), background_color='white', key="A-GRAPH")],
     ] 
 
     return sg.Window('Atrial E-GRAM', a_egram_layout)
 
 def make_a_v_egram_layout():
     a_v_egram_layout = [
-        [sg.Graph((500, 255), (0, 130), (500, 255), background_color='white', key="A-GRAPH")],
-        [sg.Graph((500, 255), (0, 0), (500, 125), background_color='white', key="V-GRAPH")]
+        [sg.Text("Atrial", font=("Helvetica", 20))],
+        [sg.Graph((800, 255), (0, 124), (800, 136), background_color='white', key="A-GRAPH")],
+        [sg.Text("Ventrical", font=("Helvetica", 20))],
+        [sg.Graph((800, 255), (0, -6), (800, 6), background_color='white', key="V-GRAPH")]
     ] 
 
     return sg.Window('Atrial & Ventrical E-GRAM', a_v_egram_layout)
