@@ -68,7 +68,6 @@ class SerialDCM:
         else:
             sg.popup("The parameters are incorrect!")
 
-    # TO-DO: Need to allow for two different graphs, one for atrial, one for ventrical, and option for both to be showing as well
     def get_all_egram_data(self):
         # Switch flag to return signals
         self.packets[1] = b'\x22'
