@@ -321,6 +321,26 @@ class DCM:
             if event == 'DISPLAY-V-EGRAM':
                 self.serial_conn.get_v_egram_data()
 
+            if event == 'STOP-PACING-BUTTON':
+                param_dict = {'mode': 0,
+                              'LRL': 1,
+                              'URL': 1,
+                              'MSR': 1,
+                              'FAD': 1,
+                              'AA': 1,
+                              'VA': 1,
+                              'APW': 1,
+                              'VPW': 1,
+                              'VRP': 1,
+                              'ARP': 1,
+                              'AT': 'Low',
+                              'REAT': 1,
+                              'RF': 1,
+                              'RT': 1}
+
+                self.serial_conn = SerialDCM()
+                self.serial_conn.send_params(param_dict)
+
         self.window2.close()
 
     # This method authenticates the user login

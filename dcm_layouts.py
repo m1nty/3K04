@@ -150,7 +150,8 @@ def make_post_submit_layout():
         [sg.Button('View Atrial E-GRAM data', key='DISPLAY-A-EGRAM')],
         [sg.Button('View Ventrical E-GRAM data', key='DISPLAY-V-EGRAM')],
         [sg.Button('View Atrial & Ventrical E-GRAM data', key='DISPLAY-BOTH-EGRAM')],
-        [sg.Button('Verify Parameters', key='VERIFY-PARAM-BUTTON')]
+        [sg.Button('Verify Parameters', key='VERIFY-PARAM-BUTTON')],
+        [sg.Button('Stop Pacing', key='STOP-PACING-BUTTON')]
     ] 
 
     return sg.Window('Pacemaker DCM', post_submit_layout)

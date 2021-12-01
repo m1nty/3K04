@@ -5,7 +5,7 @@ import struct
 from dcm_layouts import make_a_v_egram_layout, make_a_egram_layout, make_v_egram_layout
 
 class SerialDCM:
-    def __init__(self, port='COM5', baudrate=115200):
+    def __init__(self, port='COM4', baudrate=115200):
         self.port = port
         self.baudrate = baudrate
         self.packets = []
