@@ -61,6 +61,7 @@ class DCM:
                     DCM.default_paramaters(self.username, param_keys, param_limits)
                     sg.popup("User successfully registered.")
                 
+            # Handling events for each possible submission, relaying the appropriate parameters to the dcm_serial module
             if event == 'SUB-VOO':
                 DCM.submit_parameters(self.username, values, param_keys, param_limits)
 
@@ -299,8 +300,8 @@ class DCM:
         pace_lay = make_parameters(DCM.set_paramaters(self.username))
         self.window = sg.Window('Pacemaker DCM', pace_lay)
 
+    # This method handles the logic after submitting parameters
     def run_post_submit(self):
-
         self.window2 = make_post_submit_layout()
         while True:
             # Read in event and input values
@@ -382,7 +383,7 @@ class DCM:
         file.write("\n")
         file.close()
 
-    #This method is for giving a new registered user default parameters
+    # This method is for giving a new registered user default parameters
     @staticmethod
     def default_paramaters(name, param_keys, param_limits):
         count=0
@@ -408,7 +409,7 @@ class DCM:
         a_file.writelines(list_of_lines)
         a_file.close()
 
-    #This method sends the inputed values to the text file with all the data
+    # This method sends the inputed values to the text file with all the data
     @staticmethod
     def submit_parameters(name, values, param_keys, param_limits):
         invalid_value_flag = False
@@ -442,7 +443,7 @@ class DCM:
             a_file.writelines(list_of_lines)
             a_file.close()
 
-    #This method is used for gathering the saved values the user had submitted previously
+    # This method is used for gathering the saved values the user had submitted previously
     @staticmethod
     def set_paramaters(name):
         count = 0

@@ -1,11 +1,10 @@
 # Imports
 import PySimpleGUI as sg
 
-
 # Set theme of GUI
 sg.theme('Dark')
 
-#method so that the pacemaker screens can access data
+# Method so that the pacemaker screens can access data
 def make_parameters(data):
     AOO_layout = [  [sg.Text('Pacing Mode - AOO', font=("Helvetica", 20))],
                     [sg.Text('Enter Parameters:', font=("Helvetica", 16))],
@@ -122,6 +121,7 @@ def make_parameters(data):
                      [sg.Text('Recovery Time', size=(16,1)), sg.InputText(data[74], key='DOOR-RT')],
                      [sg.Button('Submit', key='SUB-DOOR')] ]
 
+    # Instantiating the tabs
     pacing_layout = [ 
         [
             sg.TabGroup
@@ -145,6 +145,7 @@ def make_parameters(data):
     ]
     return pacing_layout
 
+# Instantiate the screen after submitting parameters to the pacemaker
 def make_post_submit_layout():
     post_submit_layout = [
         [sg.Button('View Atrial E-GRAM data', key='DISPLAY-A-EGRAM')],
@@ -156,6 +157,7 @@ def make_post_submit_layout():
 
     return sg.Window('Pacemaker DCM', post_submit_layout)
 
+# Instantiate the screen to display Ventricle egram data
 def make_v_egram_layout():
     v_egram_layout = [
         [sg.Graph((800, 255), (0, -6), (800, 6), background_color='white', key="V-GRAPH")],
@@ -163,6 +165,7 @@ def make_v_egram_layout():
 
     return sg.Window('Ventrical E-GRAM', v_egram_layout)
 
+# Instantiate the screen to display Atrial egram data
 def make_a_egram_layout():
     a_egram_layout = [
         [sg.Graph((800, 255), (0, -6), (800, 6), background_color='white', key="A-GRAPH")],
@@ -170,6 +173,7 @@ def make_a_egram_layout():
 
     return sg.Window('Atrial E-GRAM', a_egram_layout)
 
+# Instantiate the screen to display both Atrial and Ventricle egram data
 def make_a_v_egram_layout():
     a_v_egram_layout = [
         [sg.Text("Atrial", font=("Helvetica", 20))],
@@ -196,7 +200,7 @@ log_in_column = [
     [sg.Button("Login"), sg.Button("Register")],
 ]
 
-# Setup the layout for the welcome/login screen 
+# Set up the layout for the welcome/login screen 
 landing_layout = [
     [
         sg.Column(welcome_column),
